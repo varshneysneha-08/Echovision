@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>EchoVision | Routing</title>
+
+    <!-- Azure Maps SDK -->
+    <script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+    <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #fdfbfb, #ebedee);
+            color: #111827;
+            min-height: 100vh;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            width: 100%;
+            box-sizing: border-box; /* make sure padding doesn't add to width */
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap; /* allow wrapping on small screens */
+            max-width: 60vw; /* limit max width to avoid pushing off-screen */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li {
+            display: flex;          /* flex to align contents horizontally */
+            align-items: center;
+        }
+
+        nav ul li form {
+            display: flex;          /* make form contents inline */
+            margin: 0;
+        }
+
+        nav ul li form button {
+            all: unset;             /* reset default button styles */
+            background-color: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li form button:hover {
+            background-color: #1e40af;
+        }
+        nav {
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li a,
+        nav ul li button {
+            color: white;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li button:hover {
+            color: #93c5fd;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+
+        .route-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, button {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e40af;
+        }
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #fdfbfb, #ebedee);
+            color: #111827;
+            min-height: 100vh;
+        }
+
+        nav {
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        nav ul li a,
+        nav ul li button {
+            color: white;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li button {
+            background-color: #2563eb;
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        nav ul li a:hover,
+        nav ul li button:hover {
+            color: #93c5fd;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+
+        .route-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, button {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e40af;
+        }
+
+        .results {
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .results h2 {
+            margin-top: 0;
+        }
+
+        .results ol {
+            padding-left: 20px;
+        }
+
+        .results li {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        #map {
+            height: 400px;
+            margin: 30px auto;
+            border-radius: 12px;
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">EchoVision</div>
+        <ul>
+            <li><a href="{% url 'client' %}">Home</a></li>
+            <li>
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Route Planner</h1>
+        <form class="route-form" method="POST" action="{% url 'get_route' %}">
+            {% csrf_token %}
+            <input type="text" name="source" placeholder="Enter starting location" required />
+            <input type="text" name="destination" placeholder="Enter destination" required />
+            <button type="submit">Get Route</button>
+        </form>
+
+        {% if instructions %}
+        <div class="results">
+            <h2>Route from {{ start }} to {{ end }}</h2>
+            <ol>
+                {% for step in instructions %}
+                <li>
+                    {{ step.instruction }}
+                    <small>({{ step.distance_meters }} meters)</small>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+        {% endif %}
+    </div>
+
+    <div id="map"></div>
+
+    {% if instructions and start_lon and start_lat and end_lon and end_lat and AZURE_MAPS_KEY %}
+    <script>
+        function loadMap() {
+            const map = new atlas.Map('map', {
+                center: [parseFloat('{{ start_lon }}'), parseFloat('{{ start_lat }}')],
+                zoom: 10,
+                view: 'Auto',
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: '{{ AZURE_MAPS_KEY }}'
+                }
+            });
+
+            map.events.add('ready', function () {
+            const datasource = new atlas.source.DataSource();
+            map.sources.add(datasource);
+
+            const startCoords = [parseFloat('{{ start_lon }}'), parseFloat('{{ start_lat }}')];
+            const endCoords = [parseFloat('{{ end_lon }}'), parseFloat('{{ end_lat }}')];
+
+            const start = new atlas.data.Feature(new atlas.data.Point(startCoords), { title: "Start" });
+            const end = new atlas.data.Feature(new atlas.data.Point(endCoords), { title: "Destination" });
+
+            const routeLine = new atlas.data.Feature(
+                new atlas.data.LineString([startCoords, endCoords])
+            );
+
+    // Add features to the datasource
+    datasource.add([start, end, routeLine]);
+
+    // Add symbol layer for markers
+    map.layers.add(new atlas.layer.SymbolLayer(datasource, null, {
+        iconOptions: {
+            image: 'pin-round-darkblue',
+            allowOverlap: true
+        },
+        textOptions: {
+            textField: ['get', 'title'],
+            offset: [0, 1.2]
+        }
+    }));
+
+    // Add line layer for route
+    map.layers.add(new atlas.layer.LineLayer(datasource, null, {
+        strokeColor: '#1e40af',
+        strokeWidth: 4
+    }));
+});
+
+        }
+
+        window.onload = loadMap;
+    </script>
+    {% endif %}
+</body>
+</html>

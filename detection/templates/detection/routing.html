@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>EchoVision | Routing</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            background: linear-gradient(135deg, #fdfbfb, #ebedee);
+            color: #111827;
+            min-height: 100vh;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            width: 100%;
+            box-sizing: border-box; /* make sure padding doesn't add to width */
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap; /* allow wrapping on small screens */
+            max-width: 60vw; /* limit max width to avoid pushing off-screen */
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li {
+            display: flex;          /* flex to align contents horizontally */
+            align-items: center;
+        }
+
+        nav ul li form {
+            display: flex;          /* make form contents inline */
+            margin: 0;
+        }
+
+        nav ul li form button {
+            all: unset;             /* reset default button styles */
+            background-color: #2563eb;
+            color: white;
+            padding: 8px 16px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li form button:hover {
+            background-color: #1e40af;
+        }
+        nav {
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 24px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li a,
+        nav ul li button {
+            color: white;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li button:hover {
+            color: #93c5fd;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+
+        .route-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, button {
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">EchoVision</div>
+        <ul>
+            <li><a href="{% url 'client' %}">Home</a></li>
+            <li><form method="POST" action="{% url 'logout' %}">{% csrf_token %}
+                <button type="submit">Logout</button>
+            </form></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Route Planner</h1>
+        <form class="route-form" method="POST" action="{% url 'get_route' %}">
+            {% csrf_token %}
+            <input type="text" name="source" placeholder="Enter starting location" required />
+            <input type="text" name="destination" placeholder="Enter destination" required />
+            <button type="submit">Get Route</button>
+        </form>
+
+        {% if route %}
+        <div class="results">
+            <h2>Route:</h2>
+            <p>{{ route }}</p> <!-- Display route here -->
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
