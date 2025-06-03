@@ -35,5 +35,5 @@ Make sure you have the following installed:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/echovision.git
+   git clone https://github.com/varshneysneha-08/echovision.git
    cd echovision
